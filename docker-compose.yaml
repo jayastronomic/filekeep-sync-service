@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: sync-api-db
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+  cache:
+    image: redis:7
+    restart: always
+    ports:
+      - "6378:6379"
+    volumes:
+      - cache:/data
+  api:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash -c "bundle check || bundle install && rails db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ".:/api"
+      - ${HOST_FILES_PATH}:/mnt/host-files
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - cache
+    environment:
+      DB_NAME: sync-api-db
+      DB_USER: appuser
+      DB_PASSWORD: password
+      DB_HOST: db
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+      REDIS_DB: 0
+      REDIS_NAMESPACE: cache
+volumes:
+  cache:
+  data:
