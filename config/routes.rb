@@ -7,5 +7,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  post "sync" => "application#sync"
+
+  post 'sync', to: 'application#sync'
 end
