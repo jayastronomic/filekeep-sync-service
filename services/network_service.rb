@@ -16,7 +16,7 @@ module NetworkService
     end
   end
 
-  def getZippedFiles(headers)
+  def get_zipped_files(headers)
     uri = URI.parse("http://localhost:8080/api/v1/sync")
     request = Net::HTTP::Get.new(uri.path, headers)
     begin

@@ -112,7 +112,7 @@ class FileSync
   def sync_remote_to_local
     puts "syncing remote to local...".colorize(:green)
     #Perform the HTTP request
-    response = getZippedFiles({
+    response = get_zipped_files({
       'Authorization' => @auth_token
     })
 
