@@ -10,3 +10,6 @@ gem 'rack-cors'
 gem 'mime-types', '~> 3.0'
 
 gem 'dotenv', groups: [:development, :test]
+gem "puma", "~> 6.6"
+
+gem "rufus-scheduler", "~> 3.9"
