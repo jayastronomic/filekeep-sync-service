@@ -14,7 +14,7 @@ class FileSync
   end
 
   def run
-    local_files = load_files_from_directory(Dir.home + "/" + @sync_path)
+    local_files = load_files_from_directory(Dir.home + '/' + @sync_path)
     puts "found: #{local_files.length} files in #{Dir.home + '/' + @sync_path}".colorize(:blue)
     if local_files.empty?
       sync_remote_to_local
@@ -59,7 +59,6 @@ class FileSync
         }
       end
     end
-  
     local_files
   end
   
@@ -102,11 +101,11 @@ class FileSync
     response = post(body.join, {
       'Content-Type' => "multipart/form-data; boundary=#{boundary}",
       'Authorization' => @auth_token
-    })
+    }) || raise("Response is nil")
 
     puts response
 
-    sync_remote_to_local if response.code.to_i == 201
+    sync_remote_to_local if response&.code&.to_i == 201
   end
 
   def sync_remote_to_local
@@ -114,11 +113,11 @@ class FileSync
     #Perform the HTTP request
     response = get_zipped_files({
       'Authorization' => @auth_token
-    })
+    }) || raise("Response is nil")
 
     puts response
     # Handle the response from the API
-    if response.code.to_i == 200
+    if response&.code&.to_i == 200
       zip_data = JSON.parse(response.body)["data"]
       save_to_sync_path(zip_data)
     end

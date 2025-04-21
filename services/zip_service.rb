@@ -2,7 +2,7 @@ require 'zip'
 
 module ZipService
   def unzip(sync_path, zip_data)
-    Tempfile.create(['remote_files', '.zip']) do |tmp_zip|
+    Tempfile.create(%w[remote_files .zip]) do |tmp_zip|
       tmp_zip.binmode
       tmp_zip.write(zip_data)
       tmp_zip.rewind
