@@ -1,16 +1,14 @@
-require './application.rb'
-require 'rack/cors'
+require "./application.rb"
+require "rack/cors"
 
 use Rack::Cors do
   allow do
-    origins '*'
-    resource '*',
+    origins "*"
+    resource "*",
       headers: :any,
       methods: [:get, :post, :options],
-      expose: ['Authorization']
+      expose: ["Authorization"]
   end
 end
 
-map("/sync") do
-  run FileSyncApplication.new
-end
+run FileSyncApplication.new
