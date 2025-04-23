@@ -1,5 +1,7 @@
 # FileKeep Sync — Local Folder Sync Service
 
+![Filekeep Sync Logo](./filekeep-sync.svg)
+
 **FileKeep Sync** is a lightweight Ruby application that keeps a local folder in sync with your FileKeep account. It runs as a background service on your machine, watches for file changes, and syncs them through the FileKeep web client to the FileKeep API and cloud storage.
 
 This app is part of the [FileKeep](https://github.com/jayastronomic/filekeep-client) ecosystem, a Dropbox clone built for the [John Cricket Coding Challenge](https://codingchallenges.fyi/challenges/challenge-dropbox).
